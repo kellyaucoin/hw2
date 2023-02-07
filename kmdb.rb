@@ -98,9 +98,6 @@ Role.destroy_all
 # Do not use hard-coded foreign key IDs.
 # TODO!
 
-
-
-
 # Studio data
 studio = Studio.new
 studio["name"] = "Warner Bros."
@@ -293,7 +290,7 @@ puts ""
 
 
 # Query the movies data and loop through the results to display the movies output.
-# TODO!
+# TODO! -- DONE
 
 all_movies = Movie.all
 
@@ -301,12 +298,11 @@ for movie in all_movies
     title = movie["title"]
     year_released = movie["year_released"]
     rated = movie["rated"]
-    movies_output = "#{title} #{year_released} #{rated}"
-    
-    puts movies_output
+    studio = Studio.find_by({"id" => movie["studio_id"]})
+    studio_name = studio["name"]
+    puts "#{title} #{year_released} #{rated} #{studio_name}"
 end
-
-
+  
 
 # Prints a header for the cast output
 puts ""
@@ -316,4 +312,19 @@ puts ""
 
 
 # Query the cast data and loop through the results to display the cast output for each movie.
-# TODO!
+# TODO! -- DONE
+
+all_cast = Role.all
+
+for role in all_cast
+    movie = Movie.find_by({"id" => role["movie_id"]})
+    movie_title = movie["title"]    
+    actor = Actor.find_by({"id" => role["actor_id"]})
+    actor_name = actor["name"]
+    character_name = role["character_name"]
+    puts "#{movie_title} #{actor_name} #{character_name}"
+end
+
+
+# Apologies for the late submission - I planned to work on this during the day to submit by 6pm, 
+# but I unexpectedly had to travel to Louisiana to be with my family.
